@@ -121,7 +121,7 @@ async def verify_recaptcha_enterprise(recaptcha_token: str, action: str):
     payload = {
         "event": {
             "token": recaptcha_token,
-            "siteKey": "6LdvmAMsAAAAAOOCegVofebAc7VCEZO9XQnm3fv9", # Tu site key del frontend
+            "siteKey": "6LeVpQMsAAAAABYatqJwc4H5cpDxLFDzfvHb5RI3", # Tu site key del frontend
             "expectedAction": action, # La acción que esperas (ej. 'LOGIN')
         }
     }
@@ -182,4 +182,5 @@ async def login(
     if usuario == "test" and clave == "password":
         return {"message": f"Inicio de sesión exitoso para {usuario}!"}
     else:
+
         raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos.")
