@@ -80,7 +80,7 @@ async def root():
 # 6LfgxQIsAAAAAIhBYViY8onMMC6RcxsFloNbewQf
 # clave secreta
 # 6LfgxQIsAAAAAPToIkHuZ_oxFyvDITlU5AjU8neh
-GOOGLE_CLOUD_PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT_ID", "recaptcha-deteni-1762294597063")
+GOOGLE_CLOUD_PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT_ID", "6LeVpQMsAAAAABYatqJwc4H5cpDxLFDzfvHb5RI3")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "6LfgxQIsAAAAAPToIkHuZ_oxFyvDITlU5AjU8neh") # Esta es la clave para la verificación del backend
 
 
@@ -184,3 +184,4 @@ async def login(
     else:
 
         raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos.")
+
