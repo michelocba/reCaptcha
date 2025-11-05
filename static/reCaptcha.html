@@ -7,7 +7,7 @@
     <!-- Carga reCAPTCHA Enterprise con tu clave de sitio (site key) -->
     <!-- Nota: La clave de sitio es diferente a la clave API de verificación del backend -->
     <script
-        src="https://www.google.com/recaptcha/enterprise.js?render=6LeVpQMsAAAAABYatqJwc4H5cpDxLFDzfvHb5RI3"></script>
+        src="https://www.google.com/recaptcha/enterprise.js?render=6Le1vgMsAAAAAIAtnT0vy4hsKUZc8CTox966bdPL"></script>
     <title>Probando reCaptcha</title>
     <style>
         .ingresoDatos {
@@ -93,7 +93,7 @@
             grecaptcha.enterprise.ready(async () => {
 
                 // Ejecutar reCAPTCHA para obtener un token
-                token = await grecaptcha.enterprise.execute('6LeVpQMsAAAAABYatqJwc4H5cpDxLFDzfvHb5RI3', { action: 'LOGIN' });
+                token = await grecaptcha.enterprise.execute('6Le1vgMsAAAAAIAtnT0vy4hsKUZc8CTox966bdPL', { action: 'LOGIN' });
             });
             console.log(token);
             // Obtener los datos del formulario
@@ -126,3 +126,4 @@
 
 
 </html>
+
