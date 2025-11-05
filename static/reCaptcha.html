@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Carga reCAPTCHA Enterprise con tu clave de sitio (site key) -->
+    <!-- Nota: La clave de sitio es diferente a la clave API de verificación del backend -->
+    <script
+        src="https://www.google.com/recaptcha/enterprise.js?render=6LdvmAMsAAAAAOOCegVofebAc7VCEZO9XQnm3fv9"></script>
+    <title>Probando reCaptcha</title>
+    <style>
+        .ingresoDatos {
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn_ingresar {
+            width: 95%;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 0;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        input[type=text],
+        select,
+        input[type=date],
+        input[type=password] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            outline: none;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 0;
+            margin-top: 15px;
+        }
+
+        .formulario_login {
+            width: 350px;
+            background: #fff;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            box-sizing: border-box;
+            padding: 20px;
+            opacity: 0.9;
+            box-shadow: 1px 1px 2px 1px gainsboro;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="formulario_login">
+        <form class="ingresoDatos" id="loginForm">
+            <input type="text" placeholder="Usuario" name="usuario" required autofocus>
+            <input type="password" placeholder="Contraseña" name="clave" required>
+            <!-- El botón ahora llamará a una función JavaScript para manejar el reCAPTCHA y el envío -->
+            <button type="button" class="btn_ingresar" onclick="handleLogin()">
+                Ingresar
+            </button>
+        </form>
+    </div>
+    <script>
+        async function handleLogin() {
+            // Asegurarse de que reCAPTCHA Enterprise esté listo
+            let token = 'nulo';
+            grecaptcha.enterprise.ready(async () => {
+
+                // Ejecutar reCAPTCHA para obtener un token
+                token = await grecaptcha.enterprise.execute('6LdvmAMsAAAAAOOCegVofebAc7VCEZO9XQnm3fv9', { action: 'LOGIN' });
+            });
+            console.log(token);
+            // Obtener los datos del formulario
+            const form = document.getElementById('loginForm');
+            const formData = new FormData(form);
+            formData.append('g_recaptcha_token', token); // Añadir el token de reCAPTCHA al formulario
+
+            // Enviar los datos al servidor usando fetch API
+            try {
+                const response = await fetch('/login', { // Este será tu nuevo endpoint en FastAPI
+                    method: 'POST',
+                    body: new URLSearchParams(formData) // Envía como application/x-www-form-urlencoded
+                    // Si usas JSON, necesitarías JSON.stringify y headers: {'Content-Type': 'application/json'}
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message); // Por ejemplo: "Inicio de sesión exitoso"
+                    // Redirigir o actualizar UI
+                } else {
+                    alert('Error: ' + data.detail); // Por ejemplo: "Verificación reCAPTCHA fallida"
+                }
+            } catch (error) {
+                console.error('Error al enviar el formulario:', error);
+                alert('Ocurrió un error al intentar iniciar sesión.');
+            }
+        }
+    </script>
+</body>
+
+</html>
