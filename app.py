@@ -81,7 +81,7 @@ async def root():
 # clave secreta
 # 6LfgxQIsAAAAAPToIkHuZ_oxFyvDITlU5AjU8neh
 GOOGLE_CLOUD_PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT_ID", "recaptcha-detenidos")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "6LfgxQIsAAAAAPToIkHuZ_oxFyvDITlU5AjU8neh") # Esta es la clave para la verificación del backend
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "6Le1vgMsAAAAAMk2D_4PdAxWNFAQVfh6o5yji_er") # Esta es la clave para la verificación del backend
 
 
 # --- Configuración de archivos estáticos (igual que antes) ---
@@ -121,7 +121,7 @@ async def verify_recaptcha_enterprise(recaptcha_token: str, action: str):
     payload = {
         "event": {
             "token": recaptcha_token,
-            "siteKey": "6LeVpQMsAAAAABYatqJwc4H5cpDxLFDzfvHb5RI3", # Tu site key del frontend
+            "siteKey": "6Le1vgMsAAAAAIAtnT0vy4hsKUZc8CTox966bdPL", # Tu site key del frontend
             "expectedAction": action, # La acción que esperas (ej. 'LOGIN')
         }
     }
@@ -184,5 +184,6 @@ async def login(
     else:
 
         raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos.")
+
 
 
